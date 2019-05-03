@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.user;
+import model.User;
 import java.util.Date;
 
 /**
@@ -30,9 +30,10 @@ public class user_dao_query {
 
     private Connection conn;
     private ResultSet results;
-    private user usr = new user();
+    ;
+    public User usr = new User();
 
-    public user_dao_query() {
+    public user_dao_query() throws SQLException, ClassNotFoundException {
         Properties props = new Properties();
         InputStream instr = getClass().getResourceAsStream("dbConn.properties");//let me read content of a file 
         try {
@@ -62,14 +63,14 @@ public class user_dao_query {
         }
     }
 
-    public user loginUser(String user_name, String password) throws SQLException {
+    public User loginUser(String user_name, String password) throws SQLException {
         String sql = "SELECT * FROM socialnetworkdb.user WHERE user_name=? and password=?;";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, user_name);
         ps.setString(2, password);
         this.results = ps.executeQuery();
         if (this.results.next()) {
-            user us = new user();
+            User us = new User();
             us.setUser_id(this.results.getInt("user_id"));
             us.setUsername(this.results.getString("user_name"));
             us.setPassword(this.results.getString("password"));
@@ -86,18 +87,28 @@ public class user_dao_query {
         }
         return null;
     }
+    public boolean checkUser(user us) throws SQLException{
+        String sql="SELECT * FROM socialnetworkdb.user as us where us.user_name=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, us.getUsername());
+        this.results=ps.executeQuery();
+        if(this.results.next()){
+            return true;
+        }
+        return false;
+    }
 
     public boolean signUpUser(user us) throws SQLException {
         String sql = "INSERT INTO `socialnetworkdb`.`user` ( `user_name`, `password`, `first_name`, `last_name`, `date_of_birth`, `avatar`, `gender`, `country`, `hobby`, `phone`, `email`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         Date dat = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         ps.setString(1, us.getUsername());
         ps.setString(2, us.getPassword());
         ps.setString(3, us.getFirst_name());
         ps.setString(4, us.getLast_name());
-        ps.setString(5,ft.format(us.getDate_of_birth()));
+        ps.setString(5, ft.format(dat));
         ps.setString(6, us.getAvatar());
         ps.setInt(7, us.getGender());
         ps.setString(8, us.getCountry());
@@ -116,13 +127,13 @@ public class user_dao_query {
 
     }
 
-    public ArrayList<user> GetUserList() throws SQLException {
+    public ArrayList<User> GetUserList() throws SQLException {
         String sql = "SELECT * FROM socialnetworkdb.user;";
         PreparedStatement ps = conn.prepareStatement(sql);
         this.results = ps.executeQuery();
-        ArrayList<user> arrayListUser = new ArrayList<user>();
+        ArrayList<User> arrayListUser = new ArrayList<User>();
         while (this.results.next()) {
-            user us = new user();
+            User us = new User();
             us.setUser_id(this.results.getInt("user_id"));
             us.setUsername(this.results.getString("user_name"));
             us.setPassword(this.results.getString("password"));
@@ -139,12 +150,42 @@ public class user_dao_query {
         }
         return arrayListUser;
     }
+    
+    public void update_profile(user us) throws SQLException {
+            String sql = "UPDATE `socialnetwork`.`user` set ( `password`, `first_name`, `last_name`, `date_of_birth`, `avatar`, `gender`, `country`, `hobby`, `phone`, `email`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) where user_name = ?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+            
+            
+            ps.setString(1, us.getPassword());
+            ps.setString(2, us.getFirst_name());
+            ps.setString(3, us.getLast_name());
+            ps.setString(4,ft.format(us.getDate_of_birth()));
+            ps.setString(5, us.getAvatar());
+            ps.setInt(6, us.getGender());
+            ps.setString(7, us.getCountry());
+            ps.setString(8, us.getHobby());
+            ps.setString(9, us.getPhone());
+            ps.setString(10, us.getEmail());
+            ps.setString(11, us.getUsername());
+            ps.executeUpdate();
 
+
+        }
+     public void deleteUser(String username, String password) 
+             throws SQLException {
+        String sql = "DELETE * FROM socialnetworkdb.user WHERE user_name=? and password=?;";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, username);
+        ps.setString(2, password);
+        this.results = ps.executeQuery();
+    }
+     
     public static void main(String[] args) throws SQLException {
-        user_dao_query user = new user_dao_query();
+        user_dao_query user_query = new user_dao_query();
         user usrr = new user();
         //usrr.setUser_id(123781);
-        usrr.setUsername("baophuc2");
+        usrr.setUsername("bao");
         usrr.setPassword("asdf");
         usrr.setFirst_name("nguyen");
         usrr.setLast_name("last_name");
@@ -155,8 +196,12 @@ public class user_dao_query {
         usrr.setHobby("hobby");
         usrr.setPhone("phone");
         usrr.setEmail("email");
-        boolean check = user.signUpUser(usrr);
-        System.out.println(check);
+        if(user_query.checkUser(usrr)) {
+            boolean check = user_query.signUpUser(usrr);
+             if(check) System.out.println("done");
+        }
+       
+        
 
     }
 }
