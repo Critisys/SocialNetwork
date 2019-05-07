@@ -9,9 +9,14 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-md-5 mx-auto">
+                <div class="col-md-5 mx-auto lform">
+                        <div class="top-bar">
+                            <div class="logo-pic">
+                                <img src="public/images/logo.png">
+                            </div>
+                        </div>
                 <div class="myform">
-                    <div class="logo mb-3">
+                    <div class="logo mb-3 mt-3">
                             <div class="col md-12 text-center">
                                 <h1>Login to Banana</h1>
                             </div>
@@ -35,6 +40,7 @@
                         </div>
                         <div class="col-md-12 text-center ">
                             <button type="submit" class="btn btn-block btn-primary" onclick="loginVal()">Login</button>
+                            <input name="command" value="LOGIN" type="hidden">
                         </div>
                         <div class="col-md-12">
                                 <div class="login-or">
