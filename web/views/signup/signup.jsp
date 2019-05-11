@@ -12,16 +12,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="public/css/bootstrap.css">
         <link rel="stylesheet" href="public/css/signup.css">
+
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-md-5 mx-auto lform">
-                    <div class="top-bar">
-                        <div class="logo-pic">
-                            <img src="public/images/logo.png">
-                        </div>
-                    </div>
+
+                <div class="col-md-5 mx-auto">
                     <div class="myform">
                         <div class="logo mb-3">
                             <div class="col-md-12 text-center">
@@ -35,21 +32,23 @@
                             </div>
                             <div class="form-group">
                                 <label for="pwd">Password:</label>
-                                <input type="password" class="form-control" id="pwd" onkeyup="check()">
+
+                                <input type="password" class="form-control" id="pwd">
                             </div>
                             <div class="form-group">
                                 <label for="confirmpwd">Confirm password:</label>
-                                <input type="password" class="form-control" id="confirmpwd" onkeyup="check()">
+                                <input type="password" class="form-control" id="confirmpwd">
                             </div>
-                            <div class="cointainer">
-                                <span id="fail-feedback"></span>
+                            <div class="container">
+                                <p id="fail-feedback"></p>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" id="email">
                             </div>
                             <div class="col-md-12 text-center ">
-                                <button type="submit" class="btn btn-block btn-primary">Submit</button>
+
+                                <button type="submit" class="btn btn-block btn-primary" onclick="pass(document.getElementById('pwd').value, document.getElementById('confirmpwd'))">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -57,6 +56,7 @@
             </div>
         </div>
         <script>
+
             function check(){
                 if (document.getElementById('pwd').value ==
     document.getElementById('confirmpwd').value) {
@@ -66,6 +66,7 @@
     document.getElementById('fail-feedback').style.color = 'red';
     document.getElementById('fail-feedback').innerHTML = 'not matching';
   }
+
             }
         </script>
     </body>
