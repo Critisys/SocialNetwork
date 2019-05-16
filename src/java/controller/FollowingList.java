@@ -7,20 +7,26 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
+import model.User;
+import DAO.friend_query;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
-public class Logout extends HttpServlet {
+@WebServlet(name = "FollowingList", urlPatterns = {"/FollowingList"})
+public class FollowingList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,13 +42,13 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Logout</title>");            
+            out.println("<title>Servlet FollowingList</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FollowingList at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,6 +67,7 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
+        
     }
 
     /**
@@ -75,11 +82,20 @@ public class Logout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session=request.getSession();
-        session.removeAttribute("user");
-        String url="Login";
+        User user=(User) session.getAttribute("user");
+        friend_query fq= new friend_query();
+        ArrayList<User> UserList=null;
+        try {
+            UserList = fq.searchFollowingByID(user.getUser_id());
+        } catch (SQLException ex) {
+            Logger.getLogger(FollowingList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("UserList", UserList);
+        String view="views/FollowList.jsp";
+        String url="views/FollowList.jsp";
+        request.setAttribute("view", view);
         RequestDispatcher rd=request.getRequestDispatcher(url);
         rd.forward(request, response);
-        
     }
 
     /**
