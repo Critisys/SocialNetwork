@@ -23,6 +23,7 @@
 19.	Never Miss a Deal
 20.	Contact Us
 21. Footer
+22. Feedback
 
 =============================================================*/
 
@@ -248,6 +249,8 @@ nav ul li:hover > ul {
 	float: left;
 	width: 100%;
 	position: relative;
+	padding-top: 0;
+	margin-top: 0;
 }
 
 .overlay:before {
@@ -1324,6 +1327,57 @@ main {
 	margin-right: 10px;
 }
 
+.liked-com {
+	float: left;
+}
+.liked-com li {
+	display: inline-block;
+	margin-right: 15px;
+}
+.liked-com li a {
+	color: #e44d3a;
+	font-size: 14px;
+	float: left;
+	margin-top: 6px;
+	margin-right: 5px;
+}
+.liked-com li a:hover {
+	color: #b2b2b2;
+}
+.liked-com li a.active {
+	color: #e44d3a;
+}
+.liked-com li a i {
+	margin-right: 2px;
+	font-size: 17px;
+	position: relative;
+	top: 2px;
+}
+.liked-com li span {
+	color: #e44d3a;
+	font-size: 13px;
+	width: 30px;
+	height: 30px;
+	background-color: #ffffff;
+	line-height: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	-ms-border-radius: 30px;
+	-o-border-radius: 30px;
+	border-radius: 30px;
+	float: left;
+	text-align: center;
+	font-weight: 600;
+	margin-left: -25px;
+}
+.liked-com li .com {
+	position: relative;
+	top: -5px;
+}
+.liked-com li .com img {
+	margin-right: 10px;
+}
+
 .job-status-bar > a {
 	float: right;
 	color: #b2b2b2;
@@ -1336,7 +1390,6 @@ main {
 	position: relative;
 	top: 3px;
 }
-
 
 
 /* ============= top-profiles ============ */
@@ -1423,7 +1476,7 @@ main {
 .user-profy ul li {
 	display: inline-block;
 }
-.user-profy ul li a {
+.user-profy ul li div {
 	color: #ffffff;
 	font-size: 13px;
 	padding: 0 8px;
@@ -1444,7 +1497,7 @@ main {
 .hire {
 	background-color: #51a5fb;
 }
-.user-profy > a {
+.user-profy > div {
 	float: left;
 	width: 100%;
 	color: #000000;
@@ -1454,7 +1507,7 @@ main {
 	border-top: 1px solid #ececec;
 	font-weight: 600;
 }
-.user-profy > a:hover {
+.user-profy > div:hover {
 	background-color: #e44d3a;
 	color: #fff;
 }
@@ -1478,6 +1531,7 @@ main {
 	border-radius: inherit;
 }
 .posty {
+	margin-bottom: 20px;
 	float: left;
 	width: 100%;
 	border-left: 1px solid #e4e4e4;
@@ -1576,8 +1630,10 @@ main {
 	padding-left: 50px;
 }
 .comment-list {
+	padding-top: 15px;
 	display: table;
-	padding-bottom: 30px;
+	padding-bottom: 15px;
+	border-bottom: solid 1px #b2b2b2;
 }
 .bg-img {
 	display: table-cell;
@@ -2851,6 +2907,14 @@ footer {
 }
 .pf-gallery img {
 	width: 100%;	
+	padding: 0;
+	margin: 0;
+}
+
+.pff-img{
+	padding: 0;
+	margin: 0;
+	width: 100%;
 }
 
 .product-feed-tab {
@@ -2860,6 +2924,76 @@ footer {
 }
 .product-feed-tab.current {
 	display: block;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption { 
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
 }
 
 /* =============== user-profile-ov ================ */
@@ -5351,24 +5485,49 @@ a:hover {
 }
 .widget-feat ul li i.fa-eye {
 	color: #00b540;
+}
 
+/* ========== feed-back =========== */
+
+.fed-header{
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: #ff4d4d;
+	padding-left: 5px;
+	padding-right: 5px;
 }
-.tit{
-    color: hsl(168, 54%, 42%);
-    font-family: "Freight Sans", Helvetica;
-    font-size: 40px;
-    line-height: 48px;
-    padding: 0px 0px 19px;
+.fed-header-menu{
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	color: white;
 }
-.det{
-    font-size: 18px;
-    line-height: 28px;
-    padding: 39px 69px 0px 46px;
+
+.fed-section{
+	width: 100%;
+	background: white;
 }
-.de{
-    font-weight: 700;
-    line-height: 24px;
-    font-size: 18px;
-    line-height: 28px;
-    padding: 39px 69px 0px 46px;
+.fed-div{
+	border-bottom: 2px solid #ff4d4d;
 }
+.fed-content{
+	text-align: center;
+	color: black;
+}
+
+.pagination{
+	margin: 0 auto;
+}
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #ff4d4d;
+  color: white;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
