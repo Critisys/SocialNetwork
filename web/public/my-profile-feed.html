@@ -280,9 +280,13 @@
 										<ul class="user-fw-status">
 											<li>
 												<a href ="#">
-
-													<h4>Friends</h4>
-
+													<h4>Followed</h4>
+													<span>34</span>
+												</a>
+											</li>
+											<li>
+												<a href ="#">
+													<h4>Following</h4>
 													<span>34</span>
 												</a>
 											</li>
@@ -691,18 +695,18 @@
 										</div>
 										<div class="pf-gallery">
 											<ul>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery1.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery2.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery3.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery4.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery5.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery6.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery7.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery8.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery9.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery10.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery11.png" alt=""></a></li>
-												<li><a href="#" title=""><img src="images/resources/pf-gallery12.png" alt=""></a></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery1.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery2.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery3.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery4.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery5.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery6.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery7.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery8.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery9.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery10.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery11.png" alt=""></li>
+												<li><img class="pff-img" src="images/resources/pf-gallery12.png" alt=""></li>
 											</ul>
 										</div><!--pf-gallery end-->
 									</div><!--widget-portfolio end-->
@@ -713,6 +717,17 @@
 				</div> 
 			</div>
 		</main>
+
+		<div id="myModal" class="modal">
+			<!-- The Close Button -->
+			<span class="close">&times;</span>
+		  
+			<!-- Modal Content (The Image) -->
+			<img class="modal-content" id="img01">
+		  
+			<!-- Modal Caption (Image Text) -->
+			<div id="caption"></div>
+		</div>
 
 		<footer>
 			<div class="footy-sec mn no-margin">
@@ -870,6 +885,32 @@
 <script type="text/javascript" src="js/flatpickr.min.js"></script>
 <script type="text/javascript" src="lib/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script>
+	var modal = document.getElementById('myModal');
+	// to all images -- note I'm using a class!
+	var images = document.getElementsByClassName('pff-img');
+	// the image in the modal
+	var modalImg = document.getElementById("img01");
+	// and the caption in the modal
+	var captionText = document.getElementById("caption");
+
+	// Go through all of the images with our custom class
+	for (var i = 0; i < images.length; i++) {
+		var img = images[i];
+		// and attach our click listener for this image.
+		img.onclick = function(evt) {
+			modal.style.display = "block";
+			modalImg.src = this.src;
+			captionText.innerHTML = this.alt;
+		}
+	}
+
+	var span = document.getElementsByClassName("close")[0];
+
+	span.onclick = function() {
+	modal.style.display = "none";
+	}
+</script>
 </body>
 
 <!-- Mirrored from gambolthemes.net/workwise_demo/HTML/my-profile-feed.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 28 Apr 2019 14:19:42 GMT -->
